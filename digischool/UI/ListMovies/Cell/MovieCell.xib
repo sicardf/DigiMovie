@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="219" id="pws-Sy-KP6" customClass="MovieCell" customModule="digischool" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pws-Sy-KP6" id="JQs-eL-XDW">
+                <rect key="frame" x="0.0" y="0.0" width="341" height="218.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zCB-jk-reY">
+                        <rect key="frame" x="10" y="72.5" width="74" height="74"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="74" id="aBw-Xb-s1L"/>
+                            <constraint firstAttribute="width" constant="74" id="ecg-36-XRI"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titre" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5h-lP-gzo">
+                        <rect key="frame" x="94" y="99" width="239" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zCB-jk-reY" secondAttribute="bottom" constant="13" id="0eo-UI-wWY"/>
+                    <constraint firstItem="p5h-lP-gzo" firstAttribute="centerY" secondItem="JQs-eL-XDW" secondAttribute="centerY" id="36o-L2-G6W"/>
+                    <constraint firstItem="zCB-jk-reY" firstAttribute="centerY" secondItem="JQs-eL-XDW" secondAttribute="centerY" id="CRR-ew-8HA"/>
+                    <constraint firstItem="zCB-jk-reY" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JQs-eL-XDW" secondAttribute="top" constant="13" id="Ef2-Ue-9kw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="p5h-lP-gzo" secondAttribute="trailing" id="PXX-sI-qaa"/>
+                    <constraint firstItem="p5h-lP-gzo" firstAttribute="leading" secondItem="zCB-jk-reY" secondAttribute="trailing" constant="10" id="cD5-jj-e37"/>
+                    <constraint firstItem="zCB-jk-reY" firstAttribute="leading" secondItem="JQs-eL-XDW" secondAttribute="leading" constant="10" id="kfu-zE-ASx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="posterImageView" destination="zCB-jk-reY" id="64g-TX-3Fc"/>
+                <outlet property="titreLabel" destination="p5h-lP-gzo" id="yxq-5K-kqs"/>
+            </connections>
+            <point key="canvasLocation" x="-136.5" y="-107.5"/>
+        </tableViewCell>
+    </objects>
+</document>

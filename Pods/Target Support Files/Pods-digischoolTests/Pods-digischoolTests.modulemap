@@ -1,0 +1,6 @@
+framework module Pods_digischoolTests {
+  umbrella header "Pods-digischoolTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NzQ-DM-EQf">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Box Office-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ListMoviesViewController" customModule="digischool" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="e3w-bs-aZX">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JLT-Bm-Tie">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="e3w-bs-aZX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AHX-VK-RzJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JLT-Bm-Tie" secondAttribute="trailing" id="Ccq-PB-WbA"/>
+                            <constraint firstItem="e3w-bs-aZX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GQC-hM-YjD"/>
+                            <constraint firstItem="e3w-bs-aZX" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Jco-pk-YkG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JLT-Bm-Tie" secondAttribute="bottom" id="iaP-ek-3hn"/>
+                            <constraint firstItem="JLT-Bm-Tie" firstAttribute="top" secondItem="e3w-bs-aZX" secondAttribute="bottom" id="vZc-uI-Q8E"/>
+                            <constraint firstItem="JLT-Bm-Tie" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wH0-vP-NbH"/>
+                            <constraint firstItem="JLT-Bm-Tie" firstAttribute="top" secondItem="e3w-bs-aZX" secondAttribute="bottom" id="xEO-4w-qRK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Box Office" id="gwx-dB-bXh"/>
+                    <connections>
+                        <outlet property="searchBar" destination="e3w-bs-aZX" id="O1B-Wx-2PK"/>
+                        <outlet property="searchDisplayController" destination="uFz-ir-L7M" id="BIW-MK-lnx"/>
+                        <outlet property="tableView" destination="JLT-Bm-Tie" id="3sY-zU-scF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="uFz-ir-L7M">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="zKK-1o-gdK"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="icC-CU-UJS"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="58V-Wg-fGl"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="Nc8-4I-QO5"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="372" y="31.934032983508249"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3eS-ba-GBi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NzQ-DM-EQf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hXB-vE-xdl">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.47058823529411764" green="0.6470588235294118" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="d5S-Gi-0Uw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hVn-fR-gsq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-574" y="32"/>
+        </scene>
+    </scenes>
+</document>
