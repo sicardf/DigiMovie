@@ -72,7 +72,7 @@ class ListMoviesViewController: UIViewController {
     }
     
     private func request(search: String) {
-        API().req(.getSearchTitle, params: ["s" : search, "page": "\(page + 1)"]) { (success, data) in
+        API().req(.getSearchTitle, params: ["s" : search, "page": "\(page + 1)", "type": "movie"]) { (success, data) in
             if success {
                 if let data = data {
                     self.page += 1
