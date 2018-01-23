@@ -25,7 +25,7 @@ class MovieCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    var item: MoviesViewModelMovieItem? {
+    var item: MovieSearchViewModelItem? {
         didSet {
             guard let item = item else {
                 return

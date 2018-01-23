@@ -17,18 +17,16 @@ enum typeMovie {
 
 class ListMovies {
     
-    var movies = [Movie]()
+    var movies = [MovieSearch]()
     var lastPage = 0
     
     init?(data: Data) {
         do {
             let json = try JSON(data: data)
-           // print(json)
             for item in json["Search"] {
-                let movie = Movie(json: item.1)
+                let movie = MovieSearch(json: item.1)
                 movies.append(movie)
             }
-            //events = events.sorted(by: { $0.dateStart! < $1.dateStart! })
         } catch {
             print("Error deserializing JSON: \(error)")
             return
@@ -38,9 +36,8 @@ class ListMovies {
     func addPage(data: Data, page: Int) {
         do {
             let json = try JSON(data: data)
-           // print(json)
             for item in json["Search"] {
-                let movie = Movie(json: item.1)
+                let movie = MovieSearch(json: item.1)
                 movies.append(movie)
             }
             lastPage = page
@@ -57,7 +54,7 @@ class ListMovies {
     }
 }
 
-class Movie {
+class MovieSearch {
     var title: String?
     var imdbid: String?
     var poster: String?
@@ -65,7 +62,6 @@ class Movie {
     var year: String?
     
     init(json: JSON) {
-       // print(json)
         self.title = json["Title"].string
         self.imdbid = json["imdbID"].string
         self.poster = json["Poster"].string

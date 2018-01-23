@@ -8,26 +8,19 @@
 
 import UIKit
 
-//protocol ListEventViewModelItem {
-//    var sectionTitle: String { get }
-//    var rowCount: Int { get }
-//    var events: [EventViewModelEventItem] { get set }
-//    var date: Date { get }
-//}
-
 class ListMoviesViewModel: NSObject {
-    var items = [MoviesViewModelMovieItem]()
+    var items = [MovieSearchViewModelItem]() {
+        didSet {
+            self.listMoviesDidChange?(self)
+        }
+    }
+    var listMoviesDidChange: ((ListMoviesViewModel) -> ())?
     
-//    init() {
-//        super.init()
-//    }
-    
-    func addMovies(movies: [Movie]) {
+    func addMovies(movies: [MovieSearch]) {
         for item in movies {
 
             if let title = item.title, let imdbid = item.imdbid, let poster = item.poster, let type = item.type, let year = item.year {
-                print(title)
-                let movie = MoviesViewModelMovieItem(title: title,
+                let movie = MovieSearchViewModelItem(title: title,
                                                      imdbid: imdbid,
                                                      poster: poster,
                                                      type: type,
@@ -49,7 +42,6 @@ extension ListMoviesViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(items.count)
         return items.count
     }
     
@@ -63,14 +55,9 @@ extension ListMoviesViewModel: UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return items[section].sectionTitle
-//    }
-    
 }
 
-class MoviesViewModelMovieItem {
+class MovieSearchViewModelItem {
     var title: String
     var imdbid: String
     var poster: String
@@ -85,41 +72,4 @@ class MoviesViewModelMovieItem {
         self.year = year
     }
 }
-
-//class ListEventViewModelEventItem: ListEventViewModelItem {
-//    var events = [EventViewModelEventItem]()
-//    var date: Date
-//
-//    var sectionTitle: String {
-//        return date.convertToString(formatType: "MM/yyyy")
-//    }
-//
-//    var rowCount: Int {
-//        return events.count
-//    }
-//
-//    init(date: Date) {
-//        self.date = date
-//    }
-//}
-//
-//class EventViewModelEventItem {
-//    var dateStart: Date
-//    var dateEnd: Date
-//    var title: String
-//    var content: String
-//    var address: Address
-//    var excerpt: String?
-//    var icon: String?
-//
-//    init(dateStart: Date, dateEnd: Date, title: String, content: String, address: Address, excerpt: String?, icon: String?) {
-//        self.dateStart = dateStart
-//        self.dateEnd = dateEnd
-//        self.title = title
-//        self.content = content
-//        self.address = address
-//        self.excerpt = excerpt
-//        self.icon = icon
-//    }
-//}
 

@@ -45,9 +45,7 @@ class API: NSObject {
         if let params = params {
             parameters = params
         }
-        parameters.update(other: ["apikey": valueForAPIKey(named: "APIKEY_PROD")])
-        print(parameters)
-        
+        parameters.update(other: ["apikey": valueForAPIKey(named: "APIKEY_PROD")])        
         Alamofire.request(
             valueForAPIKey(named: "URL_PROD") + Req.Request.url,
             method: Req.Request.method,
@@ -67,11 +65,14 @@ class API: NSObject {
     }
     
     public enum requestEnum : APIProtocol {
-        case getSearch
+        case getSearchTitle
+        case getSearchIMDbID
         
         var Request : request {
             switch self {
-            case .getSearch:
+            case .getSearchTitle:
+                return request(url: "/", method: .get)
+            case .getSearchIMDbID:
                 return request(url: "/", method: .get)
             }
         }

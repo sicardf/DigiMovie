@@ -14,29 +14,37 @@ class ListMoviesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var page = 0
-    
-    fileprivate var viewModel = ListMoviesViewModel()
+    private var page = 0
+    private var debouncedSearch: Debouncer!
+    private var viewModel: ListMoviesViewModel! {
+        didSet {
+            self.viewModel.listMoviesDidChange = { [unowned self] viewModel in
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = ListMoviesViewModel()
+        debouncedSearch = Debouncer(delay: 0.15) {
+            if let text = self.searchBar.text {
+                self.page = 0
+                self.viewModel.clean()
+                self.request(search: text)
+            }
+        }
         
         configTableView()
-        
-        searchBar.delegate = self
-        
-      //  request()
-       // tableView.reloadData()
-        // Do any additional setup after loading the view, typically from a nib.
+        configSearchBar()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     private func configTableView() {
-        
         tableView?.dataSource = viewModel
         tableView?.delegate = self
         
@@ -46,48 +54,51 @@ class ListMoviesViewController: UIViewController {
         tableView?.rowHeight = UITableViewAutomaticDimension
         
         tableView?.register(MovieCell.nib, forCellReuseIdentifier: MovieCell.identifier)
-        
-        
-        
     }
     
-    func request(search: String) {
-        API().req(.getSearch, params: ["s" : search, "page": "\(page + 1)"]) { (success, data) in
+    private func configSearchBar() {
+        searchBar.delegate = self
+    }
+    
+    private func request(search: String) {
+        API().req(.getSearchTitle, params: ["s" : search, "page": "\(page + 1)"]) { (success, data) in
             if success {
                 self.page += 1
                 guard let listMovies = ListMovies(data: data!) else {
                     return
                 }
                 self.viewModel.addMovies(movies: listMovies.movies)
-                self.tableView.reloadData()
             }
         }
     }
-    
-    
-    
-    
-//    @IBAction func touch(_ sender: Any) {
-//        request()
-//    }
+
     
 }
 
 extension ListMoviesViewController: UITableViewDelegate {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MovieSegue" {
+            let movieViewController = segue.destination as! MovieViewController
+            let indexPath = sender as! IndexPath
+            movieViewController.IMDbID = viewModel.items[indexPath.row].imdbid
+        }
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastItem = viewModel.items.count - 1
         if indexPath.row == lastItem {
             request(search: searchBar.text!)
         }
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "MovieSegue", sender: indexPath)
+    }
 }
 
 extension ListMoviesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.page = 0
-        viewModel.clean()
-        self.request(search: searchText)
+        debouncedSearch.call()
     }
 }
-
