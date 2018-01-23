@@ -19,6 +19,7 @@ class ListMoviesViewController: UIViewController {
     private var viewModel: ListMoviesViewModel! {
         didSet {
             self.viewModel.listMoviesDidChange = { [unowned self] viewModel in
+                self.tableViewStyleLine(viewModel.items.count)
                 self.tableView.reloadData()
             }
         }
@@ -26,15 +27,10 @@ class ListMoviesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ListMoviesViewModel()
-        debouncedSearch = Debouncer(delay: 0.15) {
-            if let text = self.searchBar.text {
-                self.page = 0
-                self.viewModel.clean()
-                self.request(search: text)
-            }
-        }
         
+        viewModel = ListMoviesViewModel()
+        
+        initDebouncer()
         configTableView()
         configSearchBar()
     }
@@ -44,16 +40,31 @@ class ListMoviesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func initDebouncer() {
+        debouncedSearch = Debouncer(delay: 0.15) {
+            if let text = self.searchBar.text {
+                self.page = 0
+                self.viewModel.clean()
+                self.request(search: text)
+            }
+        }
+    }
+    
     private func configTableView() {
         tableView?.dataSource = viewModel
         tableView?.delegate = self
-        
         tableView?.keyboardDismissMode = .onDrag
-        
         tableView?.estimatedRowHeight = 100
         tableView?.rowHeight = UITableViewAutomaticDimension
-        
         tableView?.register(MovieCell.nib, forCellReuseIdentifier: MovieCell.identifier)
+        tableView?.separatorStyle = .none
+        
+        let messageTB = UILabel(frame: CGRect(x: 0, y: 0, width: (tableView?.bounds.size.width)!, height: (tableView?.bounds.size.height)!))
+        messageTB.text = "Merci de faire une recherche"
+        messageTB.textAlignment = .center
+        messageTB.sizeToFit()
+        tableView?.backgroundView = messageTB
+
     }
     
     private func configSearchBar() {
@@ -63,15 +74,16 @@ class ListMoviesViewController: UIViewController {
     private func request(search: String) {
         API().req(.getSearchTitle, params: ["s" : search, "page": "\(page + 1)"]) { (success, data) in
             if success {
-                self.page += 1
-                guard let listMovies = ListMovies(data: data!) else {
-                    return
+                if let data = data {
+                    self.page += 1
+                    guard let listMovies = ListMovies(data: data) else {
+                        return
+                    }
+                    self.viewModel.addMovies(movies: listMovies.movies)
                 }
-                self.viewModel.addMovies(movies: listMovies.movies)
             }
         }
     }
-
     
 }
 
@@ -94,6 +106,16 @@ extension ListMoviesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "MovieSegue", sender: indexPath)
+    }
+    
+    func tableViewStyleLine(_ countItem: Int) {
+        if countItem == 0 {
+            self.tableView?.separatorStyle = .none
+            tableView?.backgroundView?.isHidden = false
+        } else {
+            self.tableView.separatorStyle = .singleLine
+            tableView?.backgroundView?.isHidden = true
+        }
     }
 }
 

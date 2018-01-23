@@ -9,35 +9,44 @@
 import UIKit
 
 class ListMoviesViewModel: NSObject {
-    var items = [MovieSearchViewModelItem]() {
+    
+    private var _items = [MovieSearchViewModelItem]() {
         didSet {
             self.listMoviesDidChange?(self)
         }
     }
+    public var items: [MovieSearchViewModelItem] {
+        get {
+            return _items
+        }
+    }
+    
     var listMoviesDidChange: ((ListMoviesViewModel) -> ())?
     
     func addMovies(movies: [MovieSearch]) {
         for item in movies {
-
             if let title = item.title, let imdbid = item.imdbid, let poster = item.poster, let type = item.type, let year = item.year {
                 let movie = MovieSearchViewModelItem(title: title,
                                                      imdbid: imdbid,
                                                      poster: poster,
                                                      type: type,
                                                      year: year)
-                items.append(movie)
+                _items.append(movie)
             }
         }
     }
     
     func clean() {
-        items = []
+        _items = []
     }
     
 }
 
 extension ListMoviesViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        if items.count == 0 {
+            return 0
+        }
         return 1
     }
     

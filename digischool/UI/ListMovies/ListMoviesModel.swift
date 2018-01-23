@@ -41,7 +41,6 @@ class ListMovies {
                 movies.append(movie)
             }
             lastPage = page
-            //events = events.sorted(by: { $0.dateStart! < $1.dateStart! })
         } catch {
             print("Error deserializing JSON: \(error)")
             return
