@@ -16,6 +16,8 @@ Run the following command :
 $ pod install
 ```
 
+Please add **APIKEY_PROD** in APIKey.plist
+
 ## Project implementation
 
 #### Requirements
